@@ -10,25 +10,7 @@ yarn install
 yarn run serve
 ```
 
-### Compiles and minifies for production
+## Live preview
 ```
-yarn run build
+https://fierce-ravine-55775.herokuapp.com/
 ```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Run your unit tests
-```
-yarn run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
