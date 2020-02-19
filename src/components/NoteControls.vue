@@ -2,39 +2,39 @@
   <div class="note-controls">
     <button
       v-for="button in controls"
-      :key="button"
-      :class="`button button--${button}`"
-      @click="$emit(button)"
+      :key="button.type"
+      :class="['button', `button--${button.type}`, { 'button--disabled': button.disabled }]"
+      :disabled="button.disabled"
+      @click="$emit(button.type)"
     >
-      {{ button }}
+      {{ button.type }}
     </button>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'NoteControls',
-  data() {
-    return {
-      homeControls: [
-        'add',
-      ],
-      editControls: [
-        'save',
-        'cancel',
-        'delete',
-        'undo',
-        'redo',
-      ],
-    };
-  },
   computed: {
+    ...mapGetters([
+      'isCancelAvailable',
+      'isUndoAvailable',
+      'isRedoAvailable',
+    ]),
     controls() {
       switch (this.$route.name) {
         case 'home':
-          return this.homeControls;
+          return [{ type: 'add', disabled: false }];
         case 'edit':
-          return this.editControls;
+          return [
+            { type: 'save', disabled: false },
+            { type: 'cancel', disabled: !this.isCancelAvailable },
+            { type: 'delete', disabled: false },
+            { type: 'undo', disabled: !this.isUndoAvailable },
+            { type: 'redo', disabled: !this.isRedoAvailable },
+          ];
         default:
           return [];
       }

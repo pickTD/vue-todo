@@ -124,6 +124,12 @@ export default new Vuex.Store({
     saveNote({ commit }) {
       commit('RESET_HISTORY');
     },
+    resetHistory({ state, commit }) {
+      if (state.history.length) {
+        commit('APPLY_SNAPSHOT', 0);
+        commit('RESET_HISTORY');
+      }
+    },
     cancelChanges({ commit }) {
       commit('SET_MODAL', {
         title: 'cancel changes?',
@@ -144,5 +150,8 @@ export default new Vuex.Store({
     getModal: (state) => state.modal,
     getAllNotes: (state) => state.notes,
     getNoteById: (state) => (id) => state.notes.find((n) => n.id === id),
+    isCancelAvailable: (state) => state.history.length > 1,
+    isUndoAvailable: (state) => state.historyIdx > 0,
+    isRedoAvailable: (state) => state.historyIdx < state.history.length - 1,
   },
 });
