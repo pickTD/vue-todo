@@ -80,14 +80,15 @@ export default new Vuex.Store({
       localStorage.setItem('notes', currentNotes);
     },
     APPLY_SNAPSHOT(state, idx) {
-      state.notes = JSON.parse(state.history[idx]);
-      state.historyIdx = idx;
+      if (state.history[idx]) {
+        state.notes = JSON.parse(state.history[idx]);
+        state.historyIdx = idx;
+      }
     },
   },
   actions: {
     addNote({ commit }, note) {
       commit('ADD_NOTES', [note]);
-      commit('ADD_SNAPSHOT');
     },
     deleteNote({ commit }, id) {
       commit('SET_MODAL', {
@@ -98,7 +99,6 @@ export default new Vuex.Store({
       });
       commit('SET_UPCOMING_CHANGE', () => {
         commit('DELETE_NOTE', id);
-        commit('ADD_SNAPSHOT');
       });
     },
     editNoteTitle({ commit }, { id, title }) {
