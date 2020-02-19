@@ -34,10 +34,14 @@ export default {
       notes: 'getAllNotes',
     }),
   },
+  mounted() {
+    this.resetHistory();
+  },
   methods: {
     ...mapActions([
       'addNote',
       'deleteNote',
+      'resetHistory',
     ]),
     editNote(id) {
       this.$router.push({ name: 'edit', params: { id } });
