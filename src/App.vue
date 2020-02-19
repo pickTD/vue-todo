@@ -50,6 +50,9 @@ export default {
       this.$store.commit('APPLY_UPCOMING_CHANGE');
       this.$store.commit('SET_UPCOMING_CHANGE', null);
       this.$store.commit('SET_MODAL', null);
+      if (this.$route.name === 'edit') {
+        this.$router.push({ name: 'home' });
+      }
     },
     reject() {
       this.$store.commit('SET_UPCOMING_CHANGE', null);
@@ -107,6 +110,10 @@ input
     background #82E0AA
   &--cancel, &--delete, &--danger
     background #F1948A
+  &--disabled
+    background #D7DBDD
+    opacity 1
+    cursor not-allowed
   &:hover
     opacity 1
 
