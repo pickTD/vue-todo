@@ -99,6 +99,8 @@ export default new Vuex.Store({
       });
       commit('SET_UPCOMING_CHANGE', () => {
         commit('DELETE_NOTE', id);
+        commit('ADD_SNAPSHOT');
+        commit('RESET_HISTORY');
       });
     },
     editNoteTitle({ commit }, { id, title }) {
@@ -126,7 +128,6 @@ export default new Vuex.Store({
     },
     resetHistory({ state, commit }) {
       if (state.history.length) {
-        commit('APPLY_SNAPSHOT', 0);
         commit('RESET_HISTORY');
       }
     },
